@@ -4,7 +4,8 @@ from langchain_openai import OpenAIEmbeddings
 from langchain_pinecone import Pinecone
 import os
 
-embeddings = OpenAIEmbeddings(openai_api_key=os.getenv("OPENAI_API_KEY"))
+
+embeddings = OpenAIEmbeddings(openai_api_key=os.environ.get("OPENAI_API_KEY"))
 
 
 def metadata_func(record: dict, metadata: dict) -> dict:
