@@ -4,9 +4,7 @@ from langchain_openai import OpenAIEmbeddings
 from langchain_pinecone import Pinecone
 import os
 
-from  vectorsearch_app.settings import OPENAI_API,PINECONE_KEY
-
-embeddings = OpenAIEmbeddings(openai_api_key=OPENAI_API)
+embeddings = OpenAIEmbeddings(openai_api_key=os.getenv("OPENAI_API_KEY"))
 
 
 def metadata_func(record: dict, metadata: dict) -> dict:
@@ -66,7 +64,7 @@ def get_semilarity_search(query):
         index_name=index, 
         embedding=embeddings,
         text_key=text_field,
-        pinecone_api_key=PINECONE_KEY
+        pinecone_api_key=os.getenv("PINECONE_API_KEY")
     )
     
     response = vectorstore.similarity_search(
