@@ -1,0 +1,93 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href=" {% static "searchapp/main.css" %}">
+    <title>Searh Properties</title>
+</head>
+<body>
+    <div class="wrapper">
+
+        <div class="searchholder">
+            <div class="searchtab">
+                <h2 class="header-test">Find your new property</h2>
+                <form action="{% url "home" %}" method="post">
+                    {% csrf_token %}
+                   <input type="search" placeholder="where do you want to leave state city " name="query">
+                   <br/>
+                   <br/>
+                   <br/>
+                    <input type="submit" value="Search">
+                </form>
+            </div>
+            <img src="{% static "images/jason-dent.jpg" %}">
+        </div>
+
+
+
+    
+        <div class="property_holder">
+            <p>Latest Listed Properties</p>
+
+            <div class="prop_container">
+
+
+                 <!--prop-->
+                 {% if response %}
+                 {% for properties in response %}
+                 
+                 
+                <div class="prop">
+                    <div class="img_desc">
+                    <div>
+                        <img src="{{properties.primary_photo}}">
+                    </div> 
+                     <div>
+                       <h3>Details</h3>
+                        <p>Status: {{properties.status}}</p>
+
+                        <p>Style: {{properties.style}}</p>
+
+                        <p>State: {{properties.state}}</p>
+
+                        <p>City: {{properties.city}}</p>
+
+                        <p>Street: {{properties.street}}</p>
+                       
+                       
+                     </div>
+
+
+                    </div>
+
+
+                    <div class="bed_bath">
+                     <div class="bath">{{properties.bedroom}} bedroom</div> 
+                     <div class="bath">{{properties.full_baths}} bathroom</div>
+                     <div class="bath">Price: ${{properties.list_price}}</div> 
+
+                    </div>
+
+                </div>
+                {% endfor %}
+                {% else %}
+            
+                {% endif %}
+                <!--prop-->
+
+                
+            
+            </div>
+            
+
+
+        </div>
+
+        <div class="footer-holder"></div>
+
+    </div>
+
+</body>
+</html>
