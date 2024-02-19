@@ -65,7 +65,7 @@ def get_semilarity_search(query):
         index_name=index, 
         embedding=embeddings,
         text_key=text_field,
-        pinecone_api_key=os.getenv("PINECONE_API_KEY")
+        pinecone_api_key=os.environ.get("PINECONE_API_KEY")
     )
     
     response = vectorstore.similarity_search(
