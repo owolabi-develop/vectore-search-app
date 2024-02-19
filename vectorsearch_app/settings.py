@@ -10,8 +10,11 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
+
 from pathlib import Path
 import os
+
+from django.core.management.utils import get_random_secret_key
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,12 +24,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure--+t_ctl6pextn3n2xd11d@c*)do&%g0g*g5hc@!ti=uu1w5xxe'
-
+#SECRET_KEY = 'django-insecure--+t_ctl6pextn3n2xd11d@c*)do&%g0g*g5hc@!ti=uu1w5xxe'
+SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", get_random_secret_key())
+OPENAI_API = os.getenv("OPENAI_API_KEY")
+PINECONE_KEY = os.getenv("PINECONE_API_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+#DEBUG = True
+DEBUG = os.getenv("DEBUG", "False") == "True"
+#ALLOWED_HOSTS = []
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "127.0.0.1,localhost").split(",")
 
 
 # Application definition
